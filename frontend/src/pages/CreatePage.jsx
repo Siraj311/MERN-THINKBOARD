@@ -2,7 +2,7 @@ import { ArrowLeftIcon } from "lucide-react"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router"
 import toast from "react-hot-toast"
-import axios from "axios"
+import api from "../lib/axios"
 
 
 const CreatePage = () => {
@@ -15,14 +15,14 @@ const CreatePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); 
 
-    // if(!title.trim() || !content.trim()) {
-    //   toast.error("All fields are required")
-    //   return
-    // }
+    if(!title.trim() || !content.trim()) {
+      toast.error("All fields are required")
+      return
+    }
 
     setLoading(true)
     try {
-      await axios.post("http://localhost:5001/api/notes", {
+      await api.post("/notes", {
         title,
         content
       })
